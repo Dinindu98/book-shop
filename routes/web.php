@@ -21,6 +21,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::namespace('Admin')->prefix('admin')->name('admin.')->group(function(){
+Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:admin-users')->group(function(){
     Route::resource('/users','UsersController',['except'=>['show','create','store']]);
+});
+
+Route::namespace('User')->prefix('user')->name('user.')->middleware('can:general-users')->group(function(){
+    Route::get('/home','HomeController@index')->name('home');
 });
