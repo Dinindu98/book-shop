@@ -28,3 +28,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:admi
 Route::namespace('User')->prefix('user')->name('user.')->middleware('can:general-users')->group(function(){
     Route::get('/home','HomeController@index')->name('home');
 });
+
+
+Route::get('stripe', 'PaymentController@stripe');
+Route::post('stripe', 'PaymentController@stripePost')->name('stripe.post');
