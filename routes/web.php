@@ -29,6 +29,8 @@ Route::namespace('User')->prefix('user')->name('user.')->middleware('can:general
     Route::get('/home','HomeController@index')->name('home');
 });
 
+Route::get('/books', 'BookController@index')->name('books');
 
-Route::get('stripe', 'PaymentController@stripe');
-Route::post('stripe', 'PaymentController@stripePost')->name('stripe.post');
+Route::get('/payment/{id}', 'PaymentController@payment')->name('payment');
+Route::get('/stripe', 'PaymentController@stripe')->name('stripe');
+Route::post('/stripe', 'PaymentController@stripePost')->name('stripe.post');

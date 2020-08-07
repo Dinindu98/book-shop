@@ -83,13 +83,7 @@
                 <div class="title m-b-md">
                     Book Shop
                 </div>
-
-                <div>
-                    <h2>BOOK A</h2>
-                </div>
-                <div>
-                    <h2>BOOK B</h2>
-                </div>
+                <a href="{{ route('register') }}"><h3>View books</h3></a>
             </div>
         </div>
     </body>
