@@ -6,9 +6,16 @@ use Illuminate\Http\Request;
 use Session;
 use Stripe;
 use App\Book;
+use App\Payment;
 
 class PaymentController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function payment($id)
     {
         $book = Book::find($id);
@@ -16,7 +23,13 @@ class PaymentController extends Controller
     }
 
 
-    public function stripe(Request $request)
+    public function stripeCard($id)
+    {
+        $book = Book::find($id);
+        return view('payment.checkout')->with('book',$book);
+    }
+  
+    public function stripeBank(Request $request)
     {
         $book = Book::find($request->id);
         return view('payment.checkout')->with('book',$book);
@@ -25,31 +38,29 @@ class PaymentController extends Controller
     
     public function stripePost(Request $request)
     {
-        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
 
-        if($request->payment_method === 'card'){
-            Stripe\Charge::create ([
-                "amount" => 100 * 100,
-                "currency" => "usd",
-                "source" => $request->stripeToken,
-                "description" => "Card Payment",
-                "owner" => [
-                    "email" => "dinindu.ayagama@gmail.com",
-                  ], 
+        // $request->validate([
+        //     'payment_method' => 'required|in:card,bank',
+        //     'quantity' => 'required|integer',
+        // ]);
+
+        $payment_method = 'card';
+
+        Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
+        Stripe\Charge::create ([
+            "amount" => 100 * 100,
+            "currency" => "usd",
+            "source" => $request->stripeToken,
+            "description" => "Card Payment",
         ]);
-        }else{
-            Stripe\Source::create([
-                "type" => "ach_credit_transfer",
-                "amount" => 100 * 100,
-                "currency" => "usd",
-                "source" => $request->stripeToken,
-                "description" => "Bank Payment",
-                "owner" => [
-                  "email" => "dinindu.ayagama@gmail.com",
-                ],
-              ]);
-        }
-  
+        
+        $payment = new Payment;
+
+        $payment->book_id = $request->input('book_id');
+        $payment->user_id = auth()->user()->id;
+        $payment->quantity = $request->input('quantity');
+        $payment->save();
+        
         Session::flash('success', 'Payment successful!');
           
         return back();

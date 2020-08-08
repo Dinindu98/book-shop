@@ -7,20 +7,13 @@
             <div class="card">
                 <div class="card-header">Book Shop</div>
                 <div class="card-body">
-                    <div>
-                        <h2>{{$book->title}}</h2>
-                        <form action="{{ route('stripe') }}" method="POST">
-                            @csrf
-                            {{method_field('POST')}}
-                            <input type="text" name="" id="quantity">
-                            <input type="text" name="quantity" id="quantity">
-                            <select name="payment_method" id="payment_method">
-                                <option value="bank">Bank Transfer</option>
-                                <option value="card">Credit Card</option>
-                            </select>
-                            <button type="submit">Checkout</button>
-                        </form>
-                    </div>
+                    <h2>Product : {{$book->title}}</h2>
+                    <p>{{$book->description}}</p>
+                    <h3>Price : $ {{$book->price}}</h3>
+                    <hr>
+                    <h5>Select your payment method</h5>
+                    <h4><a href="{{route('stripe.card',$book->id)}}">Card Payment</a></h4>
+                    <h4> <a href="{{route('stripe.bank',$book->id)}}">Bank Payment</a></h4>
                 </div>
             </div>
         </div>

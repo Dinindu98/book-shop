@@ -25,9 +25,6 @@
 <body>
   
 <div class="container">
-  
-    <h1>Laravel 6 - Stripe Payment Gateway Integration Example <br/> ItSolutionStuff.com</h1>
-  
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default credit-card-box">
@@ -48,9 +45,36 @@
                         </div>
                     @endif
   
-                    <form  role="form"  action="{{ route('stripe.post') }}"  method="post"  class="require-validation" data-cc-on-file="false" data-stripe-publishable-key="{{ env('STRIPE_KEY') }}" id="payment-form">
+                    <form 
+                            role="form" 
+                            action="{{ route('stripe.post') }}" 
+                            method="POST" 
+                            class="require-validation"
+                            data-cc-on-file="false"
+                            data-stripe-publishable-key="{{ env('STRIPE_KEY') }}"
+                            id="payment-form">
                         @csrf
-  
+                        {{method_field('POST')}}
+                        <div class='form-row row'>
+                            <div class='col-xs-12 form-group'>
+                                <h3>Product : {{$book->title}}</h3> 
+                            </div>
+                            <div class='col-xs-12 col-md-4 form-group required'>
+                                <label class='control-label'>Quantity</label> <input
+                                class='form-control' size='4' type='text' name="quantity" id="quantity">
+                            </div>
+                            <div class='col-xs-12 col-md-4 form-group required'>
+                                <label class='control-label'>Price</label> <input
+                                class='form-control' size='4' type='text' value="{{$book->price}}" disabled>
+                            </div>
+                            <div class='col-xs-12 col-md-4 form-group required'>
+                                <label class='control-label'>Product ID</label> <input
+                                class='form-control' size='4' type='text' name="book_id" id="book_id" value="{{$book->id}}" >
+                            </div>
+                        </div>
+                        
+                        <hr>
+
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group required'>
                                 <label class='control-label'>Name on Card</label> <input
@@ -93,7 +117,7 @@
   
                         <div class="row">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now ($100)</button>
+                                <button class="btn btn-primary btn-lg btn-block" type="submit">Pay Now</button>
                             </div>
                         </div>
                           
@@ -165,4 +189,3 @@ $(function() {
    
 });
 </script>
-</html>
