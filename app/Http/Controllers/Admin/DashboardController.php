@@ -13,7 +13,7 @@ use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function dashboard()
     {
         $trendigBook = Payment::select('book_id',DB::raw('COUNT(id) as cnt', 'book_id'))
         ->where('created_at', '>=', Carbon::today())
@@ -26,25 +26,24 @@ class DashboardController extends Controller
             ->where('book_user.created_at', '>=', Carbon::today()->startOfMonth()->subMonth(2))
             ->get();
 
-        // $userList = DB::table('book_user')          
-        //      ->join('users', 'users.id', '=', 'book_user.user_id')
-        //      ->join('book', 'book.id', '=', 'book_user.user_id')
-        //      ->select('users.name as name', DB::raw('SUM(book_user.quantity ) as total_payment'))
-        //      ->groupBy('users.id')
-        //      ->get();
-
-        $userList = DB::table('users')          
-             ->join('book_user', 'book_user.user_id', '=', 'users.id')
-             ->join('book', 'book.id', '=', 'book_user.user_id')
-             ->select('users.name as name', DB::raw('SUM(book_user.quantity ) as total_payment'))
-             ->groupBy('users.id')
-             ->get();
             
         //$payments = $users->where('created_at', '>=', Carbon::today()->startOfMonth()->subMonth(2))->get();
         
         $books = Book::all();
        // $posts = Post::whereDate('created_at', Carbon::today())->get();
        return view('admin.home')->with('payments',$payments);
-       //return $userList;
+       
+    }
+
+    public function userList(){
+
+        $payments = DB::table('users')          
+            ->join('book_user', 'book_user.user_id', '=', 'users.id')
+            ->join('book', 'book.id', '=', 'book_user.book_id')
+            ->select('users.name as name', DB::raw('SUM(book_user.quantity * book.price) as total_payment'))
+            ->groupBy('users.id')
+            ->get();
+
+        return view('admin.user-list')->with('payments',$payments);
     }
 }

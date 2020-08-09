@@ -45,7 +45,7 @@
                         <div class="col-md-6">
                     @foreach ($roles as $role)
                         <div class="form-check">
-                        <input type="radio" name="roles[]" value="{{$role->id}}"
+                        <input type="checkbox" name="roles[]" value="{{$role->id}}"
                         @if($user->roles->pluck('id')->contains($role->id)) checked @endif >
                         <label> {{$role->name}} </label>
                         </div>
@@ -53,38 +53,7 @@
                     </div>                  
                     </div>
 
-                    @if(!is_null($user->userprofile))
-                    <div class="form-group row">
-                        <label for="roles" class="col-md-4 col-form-label text-md-right">User Profile Link</label>
-                        <div class="col-md-6">
-                            <div><a href="{{route('userprofile.index') . '/'. $user->userprofile->user_id}}">Profile link</a></div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="roles" class="col-md-4 col-form-label text-md-right">User NIC</label>
-                        <div class="col-md-6">
-                            <div>{{$user->userprofile->first()->nic}}</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="roles" class="col-md-4 col-form-label text-md-right">User NIC</label>
-                        <div class="col-md-6">
-                           <img src="{{route('admin.get_nic', ['id' => $user->id])}}" width="75%"/>
-                        </div>
-                    </div>
-
-                    <div class="form-group row">
-                        <label for="roles" class="col-md-4 col-form-label text-md-right">User state</label>
-                        <div class="col-md-6">
-                        <INPUT TYPE="Radio" Name="state" Value="new" checked>New
-                        <INPUT TYPE="Radio" Name="state" Value="verify"  @if($user->isVerified()) checked @endif required>Verified
-                        <INPUT TYPE="Radio" Name="state" Value="pro"  @if($user->userprofile()->first()->state === "pro") checked @endif required>Pro         
-                        </div>
-                    </div>
-
-                    @endif
+                  
                     <button type="submit" class="btn btn-primary">
                         Update
                     </button>

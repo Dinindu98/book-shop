@@ -7,12 +7,8 @@
             <div class="card">
                 <div class="card-header">Book Shop</div>
                 <div class="card-body">
-                    <h2>Product : {{$book->title}}</h2>
-                    <p>{{$book->description}}</p>
-                    <h3>Price : $ {{$book->price}}</h3>
-                    <hr>
-                    <h5>Select your payment method</h5>
-                    <h4><a href="{{route('stripe.card',$book->id)}}" class="btn btn-primary">Card Payment</a></h4>
+                    <h2>Bank Transfer</h2>
+                    
                     <h4> <a href="{{route('stripe.bank',$book->id)}}" class="btn btn-info">Bank Transfer</a></h4>
                 </div>
             </div>

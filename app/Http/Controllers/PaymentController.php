@@ -29,10 +29,10 @@ class PaymentController extends Controller
         return view('payment.checkout')->with('book',$book);
     }
   
-    public function stripeBank(Request $request)
+    public function stripeBank($id)
     {
-        $book = Book::find($request->id);
-        return view('payment.checkout')->with('book',$book);
+        $book = Book::find($id);
+        return view('payment.bank-transfer')->with('book',$book);
     }
   
     
