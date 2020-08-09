@@ -59,4 +59,12 @@ class User extends Authenticatable
         }
         return false;
     }
+
+    public function books(){
+        return $this->belongsToMany('App\Books');
+    }
+
+    public function userPayment($roles){
+        return $this->books()->where('name',$roles);
+    }
 }

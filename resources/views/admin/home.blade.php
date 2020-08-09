@@ -5,10 +5,16 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">User Dashboard</div>
+                <div class="card-header">Admin Dashboard</div>
 
                 <div class="card-body">
-                    <h3> Purchase History</h3>
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+
                     <table class="table">
                         <thead class="thead-dark">
                           <tr>

@@ -23,8 +23,19 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:admin-users')->group(function(){
     Route::resource('/users','UsersController',['except'=>['show','create','store']]);
+    Route::get('/home', 'DashboardController@index')->name('dashboard');
 });
 
 Route::namespace('User')->prefix('user')->name('user.')->middleware('can:general-users')->group(function(){
     Route::get('/home','HomeController@index')->name('home');
 });
+
+Route::get('/books', 'BookController@index')->name('books');
+
+Route::get('/payment/{id}', 'PaymentController@payment')->name('payment')->middleware('can:general-users');
+
+Route::post('/stripepost', 'PaymentController@stripePost')->name('stripe.post')->middleware('can:general-users');
+
+Route::get('/stripecard/{id}', 'PaymentController@stripeCard')->name('stripe.card')->middleware('can:general-users');
+
+Route::post('/stripebank', 'PaymentController@stripeBank')->name('stripe.bank')->middleware('can:general-users');
