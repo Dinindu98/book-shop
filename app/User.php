@@ -63,4 +63,8 @@ class User extends Authenticatable
     public function books(){
         return $this->belongsToMany('App\Books');
     }
+
+    public function userPayment($roles){
+        return $this->books()->where('name',$roles);
+    }
 }

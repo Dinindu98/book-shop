@@ -13,9 +13,30 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    @foreach ($payments as $payment)
-                    <h4>{{$payment->id}}</h4>
-                    @endforeach
+
+
+                    <table class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Product</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Quantity</th>
+                            <th scope="col">Total</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($payments as $payment)
+                                <tr>
+                                    <td>{{$payment->name}}</td>
+                                    <td>{{$payment->title}}</td>
+                                    <td>$ {{$payment->price}}</td>
+                                    <td>{{$payment->quantity}}</td>
+                                    <td>$ {{$payment->price * $payment->quantity}}</td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Role;
+use App\Payment;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -16,8 +19,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        // $users = User::all();
-        return view('user.home');
+        $user_id = auth()->user()->id;
+        
+
+        $users = DB::table('book_user')
+            ->join('book', 'book_user.book_id', '=', 'book.id')
+            ->join('users', 'book_user.user_id', '=', 'users.id')
+            ->select('book_user.*', 'book.title','book.price', 'users.name')
+            ->where('book_user.user_id',$user_id)
+            ->get();
+
+        $payments = $users;
+        return view('user.home')->with('payments',$payments);
     }
 
     /**
