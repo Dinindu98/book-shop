@@ -1,3 +1,16 @@
+<h2>Note</h2>
+<h4>
+    admin account; admin@gmail.com <br>
+    password : adminadmin <br>
+    <br>
+    user account: user@gmail.com <br>
+    password : adminadmin   <br>              
+    <br>
+    These are the default accounts. <br>
+    <br>
+    4242 4242 4242 4242 is the card number for testing purposes</h4>
+
+
 <p align="center"><img src="https://res.cloudinary.com/dtfbvvkyp/image/upload/v1566331377/laravel-logolockup-cmyk-red.svg" width="400"></p>
 
 <p align="center">
