@@ -44,11 +44,13 @@ class PaymentController extends Controller
         //     'quantity' => 'required|integer',
         // ]);
 
-        $payment_method = 'card';
+        $book_id = $request->input('book_id');
+        $quantity = $request->input('quantity');
+        $book = BooK::find($book_id);
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
-            "amount" => 100 * 100,
+            "amount" => $book->price *100 * $quantity,
             "currency" => "usd",
             "source" => $request->stripeToken,
             "description" => "Card Payment",
@@ -56,9 +58,9 @@ class PaymentController extends Controller
         
         $payment = new Payment;
 
-        $payment->book_id = $request->input('book_id');
+        $payment->book_id = $book_id;
         $payment->user_id = auth()->user()->id;
-        $payment->quantity = $request->input('quantity');
+        $payment->quantity = $quantity;
         $payment->save();
         
         Session::flash('success', 'Payment successful!');
