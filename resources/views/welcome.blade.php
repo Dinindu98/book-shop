@@ -83,7 +83,7 @@
                 <div class="title m-b-md">
                     Book Shop
                 </div>
-                <a href="{{ route('books') }}"><h3>View books</h3></a>
+                <a href="{{ route('books') }}" class="btn btn-primary btn-lg"><h3>View books</h3></a>
             </div>
         </div>
     </body>

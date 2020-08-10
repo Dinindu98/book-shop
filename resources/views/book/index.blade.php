@@ -10,9 +10,14 @@
                     <div>
                         @if (count($books)>0)
                             @foreach ($books as $book)
-                                <h3>{{$book->title}}</h3>
-                                <h4>$ {{$book->price}}</h4>
-                                <a href="{{route('payment',$book->id)}}"><h4>Buy Book</h4></a>
+                                <div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+                                    <div class="card-header">{{$book->title}}</div>
+                                    <div class="card-body">
+                                    <h5 class="card-title">Price $ {{$book->price}}</h5>
+                                    <p class="card-text">Book id : {{$book->id}}</p>
+                                    <a href="{{route('payment',$book->id)}}"  class="btn btn-primary float-right" right>Buy Book</a>
+                                    </div>
+                                </div>
                                 <hr>
                             @endforeach
                         @else

@@ -14,7 +14,13 @@
                         </div>
                     @endif
 
-
+                    <a href="{{ route('books') }}" class="btn btn-info">Buy books</a> 
+                    <a href="{{ route('admin.users.index') }}" class="btn btn-info">User Management</a>
+                    <a href="{{ route('admin.user-list') }}" class="btn btn-info">User List</a>
+                    <hr>
+                    {{-- <h4> Daily Trending Book : {{$trendingBook->book_id}}</h4> --}}
+                    <hr>
+                    <h4>Purchase History of last 2 months</h4>
                     <table class="table">
                         <thead class="thead-dark">
                           <tr>

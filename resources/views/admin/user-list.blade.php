@@ -5,29 +5,30 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">User Dashboard</div>
-                <a href="{{route('books')}}"  class="btn btn-primary float-right" right>Buy Book</a>
-                <hr>
+                <div class="card-header">Admin Dashboard</div>
+
                 <div class="card-body">
-                    <h3> Purchase History</h3>
+                    @if (session('status'))
+                        <div class="alert alert-success" role="alert">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
+                    <a href="{{ route('admin.dashboard') }}" class="btn btn-info">Dashboard</a> 
+                    <hr>
+                    <h4>User List</h4>
                     <table class="table">
                         <thead class="thead-dark">
                           <tr>
                             <th scope="col">Customer Name</th>
-                            <th scope="col">Product</th>
-                            <th scope="col">Price</th>
-                            <th scope="col">Quantity</th>
-                            <th scope="col">Total</th>
+                            <th scope="col">Total Payment</th>
                           </tr>
                         </thead>
                         <tbody>
                             @foreach ($payments as $payment)
                                 <tr>
                                     <td>{{$payment->name}}</td>
-                                    <td>{{$payment->title}}</td>
-                                    <td>$ {{$payment->price}}</td>
-                                    <td>{{$payment->quantity}}</td>
-                                    <td>$ {{$payment->price * $payment->quantity}}</td>
+                                    <td>$ {{$payment->total_payment}}</td>
                                 </tr>
                             @endforeach
                         </tbody>
