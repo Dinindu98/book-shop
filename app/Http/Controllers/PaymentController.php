@@ -46,7 +46,7 @@ class PaymentController extends Controller
 
         $book_id = $request->input('book_id');
         $quantity = $request->input('quantity');
-        $book = BooK::find($book_id);
+        $book = Book::find($book_id);
 
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
